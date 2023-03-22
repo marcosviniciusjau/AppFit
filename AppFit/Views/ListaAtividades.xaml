@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFit.Views.ListaAtividades"
+              xmlns:local="clr-namespace:SetTimer"
+             x:Name="Pagina"
+              BackgroundImageSource="fundo.png">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Atualizar"
+                     IconImageSource="{OnPlatform Android=refresh24, UWP=Assets/refresh24.png}"
+                     Command="{Binding AtualizarLista}"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <SearchBar Placeholder="Busque por Descrição" Text="{Binding ParametroBusca }" TextColor="white"/>
+                <Button Text="Buscar" Command="{Binding Buscar}" />
+            </StackLayout>
+
+
+            <RefreshView IsRefreshing="{Binding EstaAtualizando, Mode=OneWay}"
+                         Command="{Binding AtualizarLista}">
+
+                <ListView  ItemsSource="{Binding ListaAtividades}">
+                  
+                    <ListView.Header>
+                        <Grid RowDefinitions="Auto"
+                              ColumnDefinitions="*,*,*">
+                            <Label Grid.Row="0" Grid.Column="0" Text="Id" TextColor="white"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="Descrição" TextColor="white"/>
+                            <Label Grid.Row="0" Grid.Column="2" Text="Data" TextColor="white"/>
+                            <Label Grid.Row="0" Grid.Column="3" Text="Hora" TextColor="white"/>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Detalhes"
+                                              Command="{Binding Source={x:Reference Pagina}, Path=BindingContext.AbrirDetalhesAtividade }"
+                                              CommandParameter="{Binding Id}"/>
+                                    <MenuItem Text="Excluir"
+                                              Command="{Binding Source={x:Reference Pagina}, Path=BindingContext.Remover }"
+                                              CommandParameter="{Binding Id}" />
+                                </ViewCell.ContextActions>
+
+                                <Grid RowDefinitions="Auto"
+                                      ColumnDefinitions="*,*,*">
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Id}" TextColor="white"/>
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Descricao}" TextColor="white"/>
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Data, StringFormat='{}{0:dd/MM/yyyy}'}" TextColor="white"/>
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding Hora}" TextColor="white"/>
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

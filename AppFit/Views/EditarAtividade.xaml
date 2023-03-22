@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="AppFit.Views.EditarAtividade"
+                 BackgroundImageSource="fundo.png">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nova" Order="Primary" Command="{Binding NovaAtividade}" />
+
+        <ToolbarItem Text="Editar"
+                     IconImageSource="{OnPlatform Android=salvar24, UWP=Assets/salvar24.png}"
+                     Order="Primary"
+                     Command="{Binding SalvarAtividade}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout >
+            <Frame Margin="50,120,50,40">
+                <StackLayout>
+                    <Label Text="Descrição:" />
+                    <Entry x:Name="descricao" Text="{Binding Descricao}" TextColor="Black" Placeholder="Qual foi sua Atividade?" />
+
+                    <Label Text="Data:" />
+                    <DatePicker  x:Name="data" Format="dd/MM/yyyy" Date="{Binding Data }" TextColor="Black"/>
+
+                    <Label Text="Hora:" />
+                    <Entry  x:Name="hora" Text="{Binding Hora}" TextColor="Black"/>
+
+                    <Label Text="Peso:" />
+                    <Entry  x:Name="peso" Text="{Binding Peso}" TextColor="Black" Keyboard="Numeric" Placeholder="Quanto você estava pesando?" />
+
+                    <Label Text="Observações:" />
+                    <Entry  x:Name="obs" Text="{Binding Observacoes}" TextColor="Black" Placeholder="Algo para lembrar mais tarde?" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
